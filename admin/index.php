@@ -1,25 +1,5 @@
-<?php require_once('includes/startup.php');
-$error = '';
-if($_POST){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	
-	$sql = "SELECT * FROM users WHERE username='". $username ."' AND password='". md5($password) ."'";
-	
-	$rs = mysqli_query($con, $sql);
-	
-	if(mysqli_num_rows($rs)){
-		
-		$rec = mysqli_fetch_assoc($rs);
-		
-		$_SESSION['login'] = $rec;
-		redirect('dashboard.php');
-	}else{
-		$error = 'Incorrect username/password!';
-	}
-}
-
-?>
+<?php require_once('includes/startup.php'); ?>
+<?php require_once('library/index_lib.php'); ?>
 <!doctype html>
 <html lang="en">
   <head>
