@@ -11,6 +11,7 @@
 	  </div>
 	</div>
   </div>
+  <?php displayAlert(); ?>
   <div class="table-responsive">
 	<table class="table table-striped table-sm">
 	  <thead>
@@ -29,7 +30,9 @@
 		  <td><?php echo $row['username']; ?></td>
 		  <td><?php echo $row['fullname']; ?></td>
 		  <td><?php echo $row['status']; ?></td>
-		  <td>Edit | Delete</td>
+		  <td>Edit | 
+		  
+		  <a href="user_listing.php?action=delete&user_id=<?php echo $row['user_id']; ?>" onclick="return confirm('Are you sure want to delete this?');">Delete</a></td>
 		</tr>
 	  <?php } ?>
 	  </tbody>

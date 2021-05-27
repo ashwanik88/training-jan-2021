@@ -23,15 +23,19 @@ if($_POST){
 				
 				$sql = "INSERT INTO users(username, password, fullname, status) values ('". $username ."', '". $password ."', '". $fullname ."', '". $status ."')";
 				$rs = mysqli_query($con, $sql);
+				
+				addAlert('success', 'New user account has been created!');
 				redirect('user_listing.php');
 				
 			}else{
-				$error = 'Username already exists!';
+				addAlert('danger', 'Username already exists!');
 			}
 		}else{
-			$error = 'Confirm password not match!';
+			
+			addAlert('danger', 'Confirm password not match!');
+				
 		}	
 	}else{
-		$error = 'Incomplete form data!';
+		addAlert('warning', 'Incomplete form data!');
 	}
 }

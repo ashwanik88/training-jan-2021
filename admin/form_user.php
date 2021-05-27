@@ -13,12 +13,8 @@
   </div>
 
 <form method="POST" action="">
-	<?php if(!empty($error)){ ?>
-	<div class="alert alert-danger alert-dismissible fade show" role="alert">
-	  <?php echo $error; ?>
-	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-	<?php } ?>
+
+	<?php displayAlert(); ?>
 
 	  <div class="mb-3 row">
 		<label for="username" class="col-sm-2 col-form-label">Username</label>

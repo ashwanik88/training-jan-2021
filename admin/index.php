@@ -21,12 +21,7 @@
     <img class="mb-4" src="images/logo.png" alt="" width="72">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 	
-	<?php if(!empty($error)){ ?>
-	<div class="alert alert-danger alert-dismissible fade show" role="alert">
-	  <?php echo $error; ?>
-	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-	<?php } ?>
+	<?php displayAlert(); ?>
 	
 	
 

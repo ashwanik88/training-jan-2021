@@ -2,5 +2,7 @@
 
 unset($_SESSION['login']);
 
+addAlert('success', 'Successfully logged out!');
+
 redirect('index.php');
 

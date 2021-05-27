@@ -14,8 +14,10 @@ if($_POST){
 		$rec = mysqli_fetch_assoc($rs);
 		
 		$_SESSION['login'] = $rec;
+		
+		addAlert('success', 'Successfully logged in!');
 		redirect('dashboard.php');
 	}else{
-		$error = 'Incorrect username/password!';
+		addAlert('danger', 'Incorrect username/password!');
 	}
 }
