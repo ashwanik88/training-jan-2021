@@ -12,14 +12,16 @@
 	</div>
   </div>
 
-<form method="POST" action="">
+<form method="POST" action="" id="frm">
+<label id="username-error" class="error" for="username" style="display: none;">Username is required.</label>
 
 	<?php displayAlert(); ?>
 
 	  <div class="mb-3 row">
 		<label for="username" class="col-sm-2 col-form-label">Username</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" id="username" name="username" value="<?php echo $username;?>" >
+		  <input type="text" class="form-control required" id="username" name="username" value="<?php echo $username;?>" >
+		  
 		</div>
 	  </div>
 	  
@@ -33,14 +35,14 @@
 	  <div class="mb-3 row">
 		<label for="cpassword" class="col-sm-2 col-form-label">Confirm Password</label>
 		<div class="col-sm-10">
-		  <input type="password" class="form-control" id="cpassword" name="cpassword" value="<?php echo $cpassword;?>">
+		  <input type="password" class="form-control" equalTo="#password" id="cpassword" name="cpassword" value="<?php echo $cpassword;?>">
 		</div>
 	  </div>
 	  
 	  <div class="mb-3 row">
 		<label for="fullname" class="col-sm-2 col-form-label">Fullname</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullname;?>">
+		  <input type="text" class="form-control required" id="fullname" name="fullname" value="<?php echo $fullname;?>">
 		</div>
 	  </div>
 	  
@@ -70,4 +72,12 @@
 </form>
 
 </main>
+<?php require_once('common/footer_upper.php'); ?>
+<?php require_once('common/footer_script.php'); ?>
+<script type="text/javascript" src="js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript">
+$('#frm').validate({
+	
+});
+</script>
 <?php require_once('common/footer.php'); ?>
