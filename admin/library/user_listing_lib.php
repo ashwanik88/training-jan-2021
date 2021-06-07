@@ -43,8 +43,18 @@ if($_GET){
 	
 }
 
+$sort = 'user_id';
+$order = 'DESC';
 
-$sql = "SELECT * FROM users";
+if(isset($_GET['sort']) && !empty($_GET['sort'])){
+	$sort = $_GET['sort'];
+}
+
+if(isset($_GET['order']) && !empty($_GET['order'])){
+	$order = $_GET['order'];
+}
+
+$sql = "SELECT * FROM users ORDER BY ". $sort ." " . $order;
 $rs = mysqli_query($con, $sql);
 
 $data = array();

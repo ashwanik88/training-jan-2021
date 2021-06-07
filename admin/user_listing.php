@@ -19,10 +19,10 @@
 	  <thead>
 		<tr>
 		  <th width="10"><input type="checkbox" onclick="$('.chk').attr('checked', $(this).is(':checked'));" /></th>
-		  <th>ID</th>
-		  <th>Username</th>
-		  <th>Fullname</th>
-		  <th>Status</th>
+		  <th><a href="user_listing.php?sort=user_id&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">ID</a></th>
+		  <th><a href="user_listing.php?sort=username&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Username</a></th>
+		  <th><a href="user_listing.php?sort=fullname&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Fullname</a></th>
+		  <th><a href="user_listing.php?sort=status&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Status</a></th>
 		  <th>Action</th>
 		</tr>
 	  </thead>
@@ -33,7 +33,7 @@
 		  <td><?php echo $row['user_id']; ?></td>
 		  <td><?php echo $row['username']; ?></td>
 		  <td><?php echo $row['fullname']; ?></td>
-		  <td><?php echo $row['status']; ?></td>
+		  <td><?php echo ($row['status'] == 1)?'Active':'Inactive'; ?></td>
 		  <td>
 		  
 		  <a href="form_user.php?user_id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-primary">Edit</a>

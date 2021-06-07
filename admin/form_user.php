@@ -28,7 +28,7 @@
 	  <div class="mb-3 row">
 		<label for="password" class="col-sm-2 col-form-label">Password</label>
 		<div class="col-sm-10">
-		  <input type="password" class="form-control" id="password" name="password" value="<?php echo $password;?>">
+		  <input type="password" class="form-control <?php echo ($user_id == 0)?'required':'';?>" id="password" name="password" value="<?php echo $password;?>">
 		</div>
 	  </div>
 	  
@@ -65,6 +65,8 @@
 </svg>
                 Save
               </button>
+			  
+			  <label id="fullname-error" class="error" for="fullname" style="display: none;"></label>
 		</div>
 	  </div>
 	  
