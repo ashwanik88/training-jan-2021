@@ -44,6 +44,19 @@
 	  </tbody>
 	</table>
   </div>
+  
+<nav>
+  <ul class="pagination">
+	<?php $n = ceil($total_record / $page_size); ?>
+	<?php for($i = 1; $i <= $n; $i++){ ?>
+	<li class="page-item">
+		<a class="page-link" href="user_listing.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+	</li>
+	<?php 
+	} ?>
+  </ul>
+</nav>
+  
  </form>
 </main>
 <?php require_once('common/footer_upper.php'); ?>

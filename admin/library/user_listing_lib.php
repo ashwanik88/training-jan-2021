@@ -54,7 +54,20 @@ if(isset($_GET['order']) && !empty($_GET['order'])){
 	$order = $_GET['order'];
 }
 
-$sql = "SELECT * FROM users ORDER BY ". $sort ." " . $order;
+$sql_total = "SELECT COUNT(*) as total FROM users";
+$rs_total = mysqli_query($con, $sql_total);
+$rec_total = mysqli_fetch_assoc($rs_total);
+
+$page_size = 10;
+$total_record = $rec_total['total'];
+
+$start_index = 0;
+if(isset($_GET['page']) && !empty($_GET['page'])){
+	$page = $_GET['page'];
+	$start_index = ($page - 1) * $page_size;
+}
+
+$sql = "SELECT * FROM users ORDER BY ". $sort ." " . $order . " LIMIT ". $start_index .", " . $page_size;
 $rs = mysqli_query($con, $sql);
 
 $data = array();

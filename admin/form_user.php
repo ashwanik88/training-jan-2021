@@ -57,6 +57,19 @@
 	  </div>
 	  
 	  <div class="mb-3 row">
+		<label for="fullname" class="col-sm-2 col-form-label">User Group</label>
+		<div class="col-sm-10">
+		  <select class="form-control required" id="usergroup" name="usergroup">
+			<option value="">Select User Group</option>
+			<option value="1">Admin</option>
+			<option value="2">Editor</option>
+			<option value="3">Sales</option>
+			<option value="4">User</option>
+		  </select>
+		</div>
+	  </div>
+	  
+	  <div class="mb-3 row">
 		<div class="col-sm-10 offset-sm-2">
 			<button type="submit" class="btn btn-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
