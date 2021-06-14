@@ -46,15 +46,40 @@ if($_GET){
 $sort = 'user_id';
 $order = 'DESC';
 
+$params = '';
 if(isset($_GET['sort']) && !empty($_GET['sort'])){
 	$sort = $_GET['sort'];
+	$params .= '&sort=' . $sort;
 }
 
 if(isset($_GET['order']) && !empty($_GET['order'])){
 	$order = $_GET['order'];
+	$params .= '&order=' . $order;
 }
 
-$sql_total = "SELECT COUNT(*) as total FROM users";
+$filter = ' WHERE 1=1 ';
+$filter_user_id = '';
+if(isset($_GET['filter_user_id']) && !empty($_GET['filter_user_id'])){
+	$filter_user_id = $_GET['filter_user_id'];
+	$filter .= " AND user_id='". (int)$filter_user_id ."'";
+}
+$filter_username = '';
+if(isset($_GET['filter_username']) && !empty($_GET['filter_username'])){
+	$filter_username = $_GET['filter_username'];
+	$filter .= " AND username='". $filter_username ."'";
+}
+$filter_fullname = '';
+if(isset($_GET['filter_fullname']) && !empty($_GET['filter_fullname'])){
+	$filter_fullname = $_GET['filter_fullname'];
+	$filter .= " AND fullname LIKE '%". $filter_fullname ."%'";
+}
+$filter_status = '';
+if(isset($_GET['filter_status'])){
+	$filter_status = $_GET['filter_status'];
+	$filter .= " AND status='". (int)$filter_status ."'";
+}
+
+$sql_total = "SELECT COUNT(*) as total FROM users" . $filter;
 $rs_total = mysqli_query($con, $sql_total);
 $rec_total = mysqli_fetch_assoc($rs_total);
 
@@ -67,7 +92,7 @@ if(isset($_GET['page']) && !empty($_GET['page'])){
 	$start_index = ($page - 1) * $page_size;
 }
 
-$sql = "SELECT * FROM users ORDER BY ". $sort ." " . $order . " LIMIT ". $start_index .", " . $page_size;
+$sql = "SELECT * FROM users ". $filter ." ORDER BY ". $sort ." " . $order . " LIMIT ". $start_index .", " . $page_size;
 $rs = mysqli_query($con, $sql);
 
 $data = array();

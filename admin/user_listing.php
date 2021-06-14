@@ -25,6 +25,20 @@
 		  <th><a href="user_listing.php?sort=status&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Status</a></th>
 		  <th>Action</th>
 		</tr>
+		<tr>
+			<td></td>
+			<td><input type="text" id="filter_user_id" value="<?php echo $filter_user_id; ?>" size="1" /></td>
+			<td><input type="text" id="filter_username" value="<?php echo $filter_username; ?>" /></td>
+			<td><input type="text" id="filter_fullname" value="<?php echo $filter_fullname; ?>" /></td>
+			<td><select id="filter_status">
+				<option value="">All</option>
+				<option value="1" <?php echo ($filter_status == 1)?'selected':''; ?>>Active</option>
+				<option value="0" <?php echo ($filter_status == 0)?'selected':''; ?>>Inactive</option>
+			</select></td>
+			<td>
+				<input type="button" value="Filter" class="btn btn-warning btnFilter" />
+			</td>
+		</tr>
 	  </thead>
 	  <tbody>
 	  <?php foreach($data as $row){ ?>
@@ -50,7 +64,7 @@
 	<?php $n = ceil($total_record / $page_size); ?>
 	<?php for($i = 1; $i <= $n; $i++){ ?>
 	<li class="page-item">
-		<a class="page-link" href="user_listing.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+		<a class="page-link" href="user_listing.php?page=<?php echo $i . $params; ?>"><?php echo $i; ?></a>
 	</li>
 	<?php 
 	} ?>
@@ -61,4 +75,31 @@
 </main>
 <?php require_once('common/footer_upper.php'); ?>
 <?php require_once('common/footer_script.php'); ?>
+<script type="text/javascript">
+$('.btnFilter').click(function(){
+	var url = 'user_listing.php?';
+
+	var filter_user_id = $('#filter_user_id').val();
+	if(filter_user_id != ''){
+		url += '&filter_user_id=' + filter_user_id;
+	}
+
+	var filter_username = $('#filter_username').val();
+	if(filter_username != ''){
+		url += '&filter_username=' + filter_username;
+	}
+
+	var filter_fullname = $('#filter_fullname').val();
+	if(filter_fullname != ''){
+		url += '&filter_fullname=' + filter_fullname;
+	}
+
+	var filter_status = $('#filter_status').val();
+	if(filter_status != ''){
+		url += '&filter_status=' + filter_status;
+	}
+
+	window.location.href = url;
+});
+</script>
 <?php require_once('common/footer.php'); ?>
