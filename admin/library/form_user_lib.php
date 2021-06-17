@@ -1,4 +1,6 @@
 <?php checkAdminAccess();
+// var_dump(unlink(DIR_UPLOADS . '1623913788_45812.jpeg'));
+// die;
 
 $user_id = 0;
 $error = '';
@@ -7,6 +9,7 @@ $password = '';
 $cpassword = '';
 $fullname = '';
 $status = '';
+$photo = '';
 
 if($_GET){
 	if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
@@ -37,8 +40,22 @@ if($_POST){
 
 			if(!userExist($username, $user_id)){
 				
+				if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
+					$ext = pathinfo($_FILES['photo']['name']);
+					$new_filename = time(). '_' . rand(9999, 99999) .'.'. $ext['extension'];
+					$dest = DIR_UPLOADS.$new_filename;
+					$src = $_FILES['photo']['tmp_name'];
+					$resp = move_uploaded_file($src, $dest);	// copy() and for delete file use unlink(filepath);
+					
+					if($resp){
+						$photo = $new_filename;
+					}else{
+						addAlert('danger', 'File not uploaded!');
+					}
+				}
+				
 				if($user_id){
-					$sql = "UPDATE users SET username='". $username ."', fullname='". $fullname ."', status='". $status ."' WHERE user_id='". (int)$user_id ."'";
+					$sql = "UPDATE users SET username='". $username ."', fullname='". $fullname ."', photo='". $photo ."', status='". $status ."' WHERE user_id='". (int)$user_id ."'";
 					addAlert('success', 'User account has been updated!');
 					
 					if(!empty($password)){
@@ -46,7 +63,7 @@ if($_POST){
 						mysqli_query($con, $sql2);
 					}
 				}else{
-					$sql = "INSERT INTO users(username, password, fullname, status) values ('". $username ."', '". md5($password) ."', '". $fullname ."', '". $status ."')";
+					$sql = "INSERT INTO users(username, password, fullname, photo, status) values ('". $username ."', '". md5($password) ."', '". $fullname ."', '". $photo ."', '". $status ."')";
 					addAlert('success', 'New user account has been created!');
 				}
 				

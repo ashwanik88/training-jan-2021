@@ -12,7 +12,7 @@
 	</div>
   </div>
 
-<form method="POST" action="" id="frm">
+<form method="POST" action="" id="frm" enctype="multipart/form-data">
 <label id="username-error" class="error" for="username" style="display: none;">Username is required.</label>
 
 	<?php displayAlert(); ?>
@@ -43,6 +43,13 @@
 		<label for="fullname" class="col-sm-2 col-form-label">Fullname</label>
 		<div class="col-sm-10">
 		  <input type="text" class="form-control required" id="fullname" name="fullname" value="<?php echo $fullname;?>">
+		</div>
+	  </div>
+	  
+	  <div class="mb-3 row">
+		<label for="photo" class="col-sm-2 col-form-label">Photo</label>
+		<div class="col-sm-10">
+		  <input type="file" class="form-control required" id="photo" name="photo" accept="image/gif, image/jpeg, image/png">
 		</div>
 	  </div>
 	  

@@ -19,15 +19,17 @@
 	  <thead>
 		<tr>
 		  <th width="10"><input type="checkbox" onclick="$('.chk').attr('checked', $(this).is(':checked'));" /></th>
-		  <th><a href="user_listing.php?sort=user_id&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">ID</a></th>
-		  <th><a href="user_listing.php?sort=username&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Username</a></th>
-		  <th><a href="user_listing.php?sort=fullname&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Fullname</a></th>
-		  <th><a href="user_listing.php?sort=status&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?>">Status</a></th>
+		  <th><a href="user_listing.php?sort=user_id&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?><?php echo $filter_url; ?>">ID</a></th>
+		  <th>Photo</th>
+		  <th><a href="user_listing.php?sort=username&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?><?php echo $filter_url; ?>">Username</a></th>
+		  <th><a href="user_listing.php?sort=fullname&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?><?php echo $filter_url; ?>">Fullname</a></th>
+		  <th><a href="user_listing.php?sort=status&order=<?php echo ($order == 'ASC')?'DESC':'ASC';?><?php echo $filter_url; ?>">Status</a></th>
 		  <th>Action</th>
 		</tr>
 		<tr>
 			<td></td>
 			<td><input type="text" id="filter_user_id" value="<?php echo $filter_user_id; ?>" size="1" /></td>
+			<td></td>
 			<td><input type="text" id="filter_username" value="<?php echo $filter_username; ?>" /></td>
 			<td><input type="text" id="filter_fullname" value="<?php echo $filter_fullname; ?>" /></td>
 			<td><select id="filter_status">
@@ -45,6 +47,9 @@
 		<tr>
 		  <td><input type="checkbox" class="chk" name="user_ids[]" value="<?php echo $row['user_id']; ?>" /></td>
 		  <td><?php echo $row['user_id']; ?></td>
+		  <td><?php if(isset($row['photo']) && !empty($row['photo'])){ ?>
+		  <img src="<?php echo HTTP_UPLOADS . $row['photo']; ?>" width="100" />
+		  <?php }else{  echo 'no image';} ?></td>
 		  <td><?php echo $row['username']; ?></td>
 		  <td><?php echo $row['fullname']; ?></td>
 		  <td><?php echo ($row['status'] == 1)?'Active':'Inactive'; ?></td>
@@ -64,7 +69,7 @@
 	<?php $n = ceil($total_record / $page_size); ?>
 	<?php for($i = 1; $i <= $n; $i++){ ?>
 	<li class="page-item">
-		<a class="page-link" href="user_listing.php?page=<?php echo $i . $params; ?>"><?php echo $i; ?></a>
+		<a class="page-link" href="user_listing.php?page=<?php echo $i . $params; ?><?php echo $filter_url; ?>"><?php echo $i; ?></a>
 	</li>
 	<?php 
 	} ?>

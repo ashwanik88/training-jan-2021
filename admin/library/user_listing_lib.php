@@ -1,5 +1,10 @@
 <?php checkAdminAccess();
 
+/*
+$_REQUEST
+$request->get[]
+*/
+
 if($_POST){
 	if(isset($_POST['user_ids']) && !empty($_POST['user_ids'])){
 		$user_ids = $_POST['user_ids'];
@@ -20,22 +25,15 @@ if($_POST){
 if($_GET){
 	if(isset($_GET['action']) && !empty($_GET['action'])){
 		$action = $_GET['action'];
-		
 		if($action == 'delete'){
 			if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
-				
 				$user_id = $_GET['user_id'];
-				
 				deleteUser($user_id);
-				
 				addAlert('success', 'User id: '. $user_id .' has been deleted!');
-				
 				redirect('user_listing.php');
-				
 			}else{
 				addAlert('danger', 'User id is missing!');
 			}
-			
 		}else{
 			addAlert('danger', 'Action not defined');
 		}
@@ -47,6 +45,7 @@ $sort = 'user_id';
 $order = 'DESC';
 
 $params = '';
+
 if(isset($_GET['sort']) && !empty($_GET['sort'])){
 	$sort = $_GET['sort'];
 	$params .= '&sort=' . $sort;
@@ -56,27 +55,31 @@ if(isset($_GET['order']) && !empty($_GET['order'])){
 	$order = $_GET['order'];
 	$params .= '&order=' . $order;
 }
-
+$filter_url = '';
 $filter = ' WHERE 1=1 ';
 $filter_user_id = '';
 if(isset($_GET['filter_user_id']) && !empty($_GET['filter_user_id'])){
 	$filter_user_id = $_GET['filter_user_id'];
 	$filter .= " AND user_id='". (int)$filter_user_id ."'";
+	$filter_url .= '&filter_user_id=' . $filter_user_id;
 }
 $filter_username = '';
 if(isset($_GET['filter_username']) && !empty($_GET['filter_username'])){
 	$filter_username = $_GET['filter_username'];
 	$filter .= " AND username='". $filter_username ."'";
+	$filter_url .= '&filter_username=' . $filter_username;
 }
 $filter_fullname = '';
 if(isset($_GET['filter_fullname']) && !empty($_GET['filter_fullname'])){
 	$filter_fullname = $_GET['filter_fullname'];
 	$filter .= " AND fullname LIKE '%". $filter_fullname ."%'";
+	$filter_url .= '&filter_fullname=' . $filter_fullname;
 }
 $filter_status = '';
 if(isset($_GET['filter_status'])){
 	$filter_status = $_GET['filter_status'];
 	$filter .= " AND status='". (int)$filter_status ."'";
+	$filter_url .= '&filter_status=' . $filter_status;
 }
 
 $sql_total = "SELECT COUNT(*) as total FROM users" . $filter;
@@ -107,3 +110,11 @@ function deleteUser($user_id){
 	$sql = "DELETE FROM users WHERE user_id='". $user_id ."'";
 	mysqli_query($con, $sql);
 }
+
+/* task 
+1) Manage customers 
+2) Manage Products
+3) Manage Brands
+4) Manage Orders
+5) Manage Categories
+*/
