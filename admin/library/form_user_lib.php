@@ -22,6 +22,7 @@ if($_GET){
 		
 		$username = $rec['username'];
 		$fullname = $rec['fullname'];
+		$photo = $rec['photo'];
 		$status = $rec['status'];
 		
 	}
@@ -48,7 +49,9 @@ if($_POST){
 					$resp = move_uploaded_file($src, $dest);	// copy() and for delete file use unlink(filepath);
 					
 					if($resp){
+						$photo_old = $photo;
 						$photo = $new_filename;
+						unlink(DIR_UPLOADS. $photo_old);
 					}else{
 						addAlert('danger', 'File not uploaded!');
 					}

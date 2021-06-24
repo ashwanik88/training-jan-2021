@@ -49,6 +49,11 @@
 	  <div class="mb-3 row">
 		<label for="photo" class="col-sm-2 col-form-label">Photo</label>
 		<div class="col-sm-10">
+		
+		<?php if(isset($photo) && !empty($photo)){ ?>
+		<img src="<?php echo HTTP_UPLOADS . $photo; ?>" width="100" />
+		<?php }else{  echo 'no image';} ?>
+		  
 		  <input type="file" class="form-control required" id="photo" name="photo" accept="image/gif, image/jpeg, image/png">
 		</div>
 	  </div>
