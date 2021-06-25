@@ -14,6 +14,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="category_listing.php">
+              <span data-feather="file"></span>
+              Manage Categories
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="shopping-cart"></span>
               Products
