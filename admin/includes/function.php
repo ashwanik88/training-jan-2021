@@ -1,5 +1,12 @@
 <?php 
-
+function post($str){
+	$str = htmlentities($str);
+	return $str;
+}
+function escape($str){
+	global $con;
+	return mysqli_real_escape_string($con, $str);
+}
 function redirect($url){
 	header('Location: ' . $url);
 	die;

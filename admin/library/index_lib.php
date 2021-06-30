@@ -12,14 +12,16 @@ if($_COOKIE){
 $error = '';
 if($_POST){
 	if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
-		$username = $_POST['username'];
+		$username = post($_POST['username']);
+		
 		$password = md5($_POST['password']);
 		authUser($con, $username, $password);
 	}
 }
 
 function authUser($con, $username, $password){
-$sql = "SELECT * FROM users WHERE username='". $username ."' AND password='". $password ."'";
+$sql = "SELECT * FROM users WHERE username='". escape($username) ."' AND password='". $password ."'";
+
 
 $rs = mysqli_query($con, $sql);
 

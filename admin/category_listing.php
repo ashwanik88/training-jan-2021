@@ -35,19 +35,9 @@
 		</tr>
 	  </thead>
 	  <tbody>
-	  <?php foreach($data as $row){ ?>
-		<tr>
-		  <td><input type="checkbox" class="chk" name="category_ids[]" value="<?php echo $row['category_id']; ?>" /></td>
-		  <td><?php echo $row['category_id']; ?></td>
-		  <td><?php echo $row['category_name']; ?></td>
-		  <td><?php echo $row['parent_id']; ?></td>
-		  <td>
-		  
-		  <a href="form_category.php?category_id=<?php echo $row['category_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
-		  
-		  <a href="category_listing.php?action=delete&category_id=<?php echo $row['category_id']; ?>" onclick="return confirm('Are you sure want to delete this?');" class="btn btn-sm btn-danger">Delete</a></td>
-		</tr>
-	  <?php } ?>
+		
+		<?php echo getCategories(0, ''); ?>
+	  
 	  </tbody>
 	</table>
   </div>

@@ -56,7 +56,7 @@ if(isset($_GET['order']) && !empty($_GET['order'])){
 	$params .= '&order=' . $order;
 }
 $filter_url = '';
-$filter = ' WHERE 1=1 ';
+$filter = ' WHERE parent_id=0 ';
 $filter_category_id = '';
 if(isset($_GET['filter_category_id']) && !empty($_GET['filter_category_id'])){
 	$filter_category_id = $_GET['filter_category_id'];
@@ -103,4 +103,40 @@ function deleteCategory($category_id){
 	global $con;
 	$sql = "DELETE FROM categories WHERE category_id='". $category_id ."'";
 	mysqli_query($con, $sql);
+}
+
+function getCategories($parent_id = 0, $sep = ''){
+	global $con;
+	$sql = "SELECT * FROM categories WHERE parent_id='". (int)$parent_id ."'";
+	$rs = mysqli_query($con, $sql);
+	$html = '';
+	if(mysqli_num_rows($rs)){
+		while($row = mysqli_fetch_assoc($rs)){
+			$html .= '<tr>';
+			$html .= '<td><input type="checkbox" class="chk" name="category_ids[]" value="'. $row['category_id'] .'" /></td>';
+			$html .= '<td>'.$row['category_id'].'</td>';
+			$html .= '<td>'. getParent($parent_id, $sep = ' >> ').$row['category_name'] . '</td>';
+			$html .= '<td>'.$row['parent_id'].'</td>';
+			$html .= '<td>';
+			$html .= '<a href="form_category.php?category_id='. $row['category_id'].'" class="btn btn-sm btn-primary">Edit</a>';
+			$html .= '<a href="category_listing.php?action=delete&category_id='. $row['category_id'].'" onclick="return confirm(\'Are you sure want to delete this?\');" class="btn btn-sm btn-danger">Delete</a></td>';
+			$html .= '</tr>';
+			$html .= getCategories($row['category_id'], $sep.'__');
+		}
+	}
+	return $html;
+}
+
+function getParent($category_id, $sep = ''){
+	global $con;
+	$sql = "SELECT * FROM categories WHERE category_id='". (int)$category_id ."'";
+	$rs = mysqli_query($con, $sql);
+	$html = '';
+	if(mysqli_num_rows($rs)){
+		while($rec = mysqli_fetch_assoc($rs)){
+			$html .= getParent($rec['parent_id'], $sep);
+			$html .= $rec['category_name'] . $sep;
+		}
+	}
+	return $html;
 }
