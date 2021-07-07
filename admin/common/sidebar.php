@@ -2,27 +2,27 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="dashboard.php">
+            <a class="nav-link <?php echo showActive('dashboard'); ?>" aria-current="page" href="dashboard.php">
               <span data-feather="home"></span>
               Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="user_listing.php">
+            <a class="nav-link <?php echo showActive('user'); ?>" href="user_listing.php">
               <span data-feather="file"></span>
               Manage Users
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="category_listing.php">
+            <a class="nav-link <?php echo showActive('category'); ?>" href="category_listing.php">
               <span data-feather="file"></span>
               Manage Categories
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link <?php echo showActive('product'); ?>" href="product_listing.php">
               <span data-feather="shopping-cart"></span>
-              Products
+              Manage Products
             </a>
           </li>
           <li class="nav-item">

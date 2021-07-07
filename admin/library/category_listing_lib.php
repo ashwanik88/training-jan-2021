@@ -105,9 +105,9 @@ function deleteCategory($category_id){
 	mysqli_query($con, $sql);
 }
 
-function getCategories($parent_id = 0, $sep = ''){
+function getCategories($parent_id = 0, $sep = '', $filter = array()){
 	global $con;
-	$sql = "SELECT * FROM categories WHERE parent_id='". (int)$parent_id ."'";
+	$sql = "SELECT * FROM categories WHERE parent_id='". (int)$parent_id ."' ORDER BY category_name ASC";
 	$rs = mysqli_query($con, $sql);
 	$html = '';
 	if(mysqli_num_rows($rs)){

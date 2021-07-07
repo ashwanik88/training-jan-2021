@@ -38,3 +38,7 @@ function displayAlert(){
 	}
 	echo $html;
 }
+
+function showActive($keyword){
+	return (strpos($_SERVER['PHP_SELF'], $keyword) !== false)?'active':'';
+}
