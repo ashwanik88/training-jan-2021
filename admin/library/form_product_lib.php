@@ -7,6 +7,7 @@ $product_code = '';
 $product_name = '';
 $status = '';
 $photo = '';
+$category_ids = array();
 
 if($_GET){
 	if(isset($_GET['product_id']) && !empty($_GET['product_id'])){
