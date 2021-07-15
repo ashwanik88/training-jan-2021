@@ -10,6 +10,7 @@
 <div class="content"></div>
 		<textarea id="txtMsg" class="form-control" placeholder="Enter Message"></textarea>
 		<input type="button" value="Send" class="btn btn-success btnSend" />
+		<span class="loading d-none">Loading...</span>
 </div>  
 
     <!-- /END THE FEATURETTES -->
@@ -30,6 +31,17 @@ $('.btnSend').click(function(){
 	success: function(json){
 		console.log(json);
 		$('.content').append('<p>' + json.msg + '</p>');
+	},
+	beforeSend: function(){
+		$('.loading').removeClass('d-none');
+		$('.btnSend').attr('disabled', true);
+	},
+	complete: function(){
+		$('.loading').addClass('d-none');
+		$('.btnSend').attr('disabled', false);
+	},
+	error: function(){
+		alert('something went wrong, please try again!');
 	}
 });
 });
